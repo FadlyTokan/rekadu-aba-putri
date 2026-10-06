@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rekadu Sirih Pinang - Aba & Putri</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Outfit:wght@300;400;500&display=swap"
+        rel="stylesheet">
+
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color: #fff7ee;
+            --text-primary: #74583e;
+            --text-dark: #593d3a;
+            --white: #ffffff;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Outfit', sans-serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1,
+        h2,
+        h3,
+        .serif-text {
+            font-family: var(--font-serif);
+            font-weight: 600;
+        }
+
+        /* --- Cover Section --- */
+        #cover {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background-color: var(--bg-color);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1), opacity 1s ease;
+            background-image: linear-gradient(to bottom, rgba(255, 247, 238, 0.9), rgba(255, 247, 238, 1)), url('https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        #cover.open {
+            transform: translateY(-100vh);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .cover-content {
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(116, 88, 62, 0.1);
+            max-width: 90%;
+            width: 400px;
+            border: 1px solid rgba(116, 88, 62, 0.2);
+            backdrop-filter: blur(5px);
+        }
+
+        .cover-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            color: var(--text-dark);
+        }
+
+        .cover-title {
+            font-size: 2.5rem;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+        }
+
+        .guest-info {
+            margin-bottom: 30px;
+            padding: 20px 0;
+            border-top: 1px solid rgba(116, 88, 62, 0.3);
+            border-bottom: 1px solid rgba(116, 88, 62, 0.3);
+        }
+
+        .guest-info p {
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+        }
+
+        #guest-name {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin: 10px 0;
+        }
+
+        .guest-disclaimer {
+            font-size: 0.7rem;
+            font-style: italic;
+            opacity: 0.8;
+            margin-top: 10px;
+        }
+
+        .btn-open {
+            background-color: var(--text-primary);
+            color: var(--white);
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-family: var(--font-sans);
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(116, 88, 62, 0.3);
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-open:hover {
+            background-color: var(--text-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(116, 88, 62, 0.4);
+        }
+
+        /* --- Main Content --- */
+        .main-container {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: var(--white);
+            min-height: 100vh;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+            position: relative;
+        }
+
+        .section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero Section */
+        .hero {
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 20px 40px;
+            background-color: var(--bg-color);
+        }
+
+        .hero-arch-wrapper {
+            position: relative;
+            width: 320px;
+            height: 380px;
+            margin: 0 auto 30px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+        }
+
+        .arch-line-outer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            border: 1.5px solid var(--text-dark);
+            border-bottom: none;
+            border-radius: 160px 160px 0 0;
+        }
+
+        .arch-line-inner {
+            position: absolute;
+            bottom: 0;
+            width: 296px;
+            height: 368px;
+            border: 1.5px solid var(--text-dark);
+            border-bottom: none;
+            border-radius: 148px 148px 0 0;
+        }
+
+        .hero-img-placeholder {
+            position: relative;
+            width: 260px;
+            height: 350px;
+            border-radius: 130px 130px 0 0;
+            border: 12px solid var(--text-primary);
+            background-color: #e2e2e2;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-bottom-width: 12px;
+        }
+
+        .hero-img-placeholder p {
+            color: #888;
+            font-size: 0.8rem;
+            font-style: italic;
+            text-align: center;
+            padding: 20px;
+            margin: 0;
+        }
+
+        .pre-title {
+            font-size: 1.1rem;
+            color: var(--text-dark);
+            font-family: var(--font-serif);
+            margin-bottom: 10px;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            line-height: 1;
+            color: var(--text-dark);
+            margin-bottom: 30px;
+            font-family: var(--font-serif);
+            font-weight: 700;
+        }
+
+        .hero-countdown-box {
+            border: 6px solid var(--text-dark);
+            background-color: var(--white);
+            padding: 20px 15px;
+            max-width: 320px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .hero-countdown-date {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            text-transform: uppercase;
+        }
+
+        .hero-countdown-timer {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            font-family: var(--font-serif);
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--text-dark);
+        }
+
+        .hero-countdown-timer .colon {
+            font-size: 1.5rem;
+            margin: 0 8px;
+            vertical-align: middle;
+            font-family: var(--font-sans);
+        }
+
+        .hero-countdown-timer .red-num {
+            color: #cc0000;
+        }
+
+        .hero-countdown-labels {
+            display: flex;
+            justify-content: space-around;
+            font-size: 0.55rem;
+            margin-top: 5px;
+            padding: 0 5px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .hero-countdown-labels span {
+            flex: 1;
+            text-align: center;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            padding: 40px 20px 60px;
+            text-align: center;
+            background-color: var(--bg-color);
+        }
+
+        .intro-text {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            font-style: italic;
+            color: var(--text-primary);
+            margin: 0 auto 40px;
+            max-width: 90%;
+        }
+
+        .intro-text strong {
+            font-weight: bold;
+        }
+
+        .profile-card {
+            margin: 0 auto 40px;
+        }
+
+        .profile-img-container {
+            width: 260px;
+            height: 380px;
+            margin: 0 auto 20px;
+            border: 5px solid var(--text-dark);
+            padding: 4px;
+            background-color: var(--white);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-img-inner {
+            width: 100%;
+            height: 100%;
+            background-color: #e2e2e2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .profile-img-inner p {
+            color: #888;
+            font-size: 0.8rem;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .profile-name {
+            font-family: var(--font-serif);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 5px;
+        }
+
+        .profile-parents {
+            font-size: 0.75rem;
+            color: var(--text-primary);
+            max-width: 90%;
+            margin: 0 auto;
+        }
+
+        .profile-divider {
+            font-family: var(--font-sans);
+            font-weight: 700;
+            font-style: italic;
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin: 40px 0;
+        }
+
+        /* Event Section */
+        .event-section {
+            position: relative;
+            padding: 100px 20px 80px;
+            background-color: #F8EFE6;
+            text-align: center;
+        }
+
+        .event-icon-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--text-dark);
+            background-color: var(--bg-color);
+        }
+
+        .event-pre-title {
+            font-size: 0.9rem;
+            color: var(--text-dark);
+            font-family: var(--font-serif);
+            margin-bottom: 10px;
+        }
+
+        .event-names {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            color: var(--text-dark);
+            margin-bottom: 40px;
+            font-weight: 700;
+        }
+
+        .event-datetime {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: 1.5px;
+            line-height: 2;
+            margin-bottom: 40px;
+            font-family: var(--font-sans);
+        }
+
+        .location-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .location-divider .line {
+            width: 60px;
+            height: 1.5px;
+            background-color: var(--text-dark);
+        }
+
+        .location-divider i {
+            color: var(--text-dark);
+            font-size: 1.8rem;
+        }
+
+        .event-address {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+            text-transform: uppercase;
+        }
+
+        .map-hint {
+            font-size: 0.55rem;
+            color: var(--text-primary);
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .btn-maps {
+            display: inline-block;
+            background-color: var(--text-dark);
+            color: var(--white);
+            padding: 8px 20px;
+            font-size: 0.6rem;
+            font-weight: 700;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            font-family: var(--font-sans);
+            letter-spacing: 1px;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 40px 20px 80px;
+            background-color: var(--bg-color);
+            text-align: center;
+        }
+
+        .gallery-title {
+            font-family: var(--font-sans);
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .gallery-item {
+            position: relative;
+            aspect-ratio: 3 / 4;
+            border: 3px solid var(--text-dark);
+            padding: 2px;
+            background-color: var(--bg-color);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Footer Section */
+        .footer-section {
+            padding: 80px 20px 100px;
+            background-color: var(--bg-color);
+            text-align: center;
+            position: relative;
+        }
+
+        .closing-text {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            line-height: 1.6;
+            color: var(--text-dark);
+            font-style: italic;
+            margin-bottom: 80px;
+            max-width: 90%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .closing-text strong {
+            font-weight: 700;
+            font-style: normal;
+        }
+
+        .footer-signatures {
+            margin-top: 40px;
+        }
+
+        .with-love {
+            font-family: var(--font-sans);
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .footer-names {
+            font-family: var(--font-serif);
+            font-size: 2.8rem;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+
+        .stay-healthy {
+            font-family: var(--font-sans);
+            font-size: 0.55rem;
+            color: var(--text-dark);
+            letter-spacing: 1px;
+            font-style: italic;
+            text-transform: uppercase;
+        }
+
+        /* Music Button */
+        #music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background-color: var(--text-primary);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            border: none;
+            animation: spin 4s linear infinite;
+        }
+
+        #music-btn.paused {
+            animation: none;
+        }
+
+        @keyframes spin {
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Audio Element (Pastikan file lagu.mp3 ada di folder yang sama) -->
+    <audio id="bg-music" loop>
+        <source src="lagu.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-btn" class="paused" onclick="toggleMusic()">
+        <i class="fas fa-music"></i>
+    </button>
+
+    <!-- Cover Page -->
+    <div id="cover">
+        <div class="cover-content">
+            <p class="cover-subtitle">Rekadu Sirih Pinang</p>
+            <h1 class="cover-title">Aba & Putri</h1>
+
+            <div class="guest-info">
+                <p>Kepada Yth. Bapak/Ibu, Tiu/Tia, Kaka/Ade, Sobat/Kenalan</p>
+                <div id="guest-name">Tamu Undangan</div>
+                <p class="guest-disclaimer">Mohon maaf apabila terdapat kesalahan dalam penulisan nama & gelar</p>
+            </div>
+
+            <button class="btn-open" onclick="openInvitation()">
+                <i class="fas fa-envelope-open-text"></i> Ketuk Rekadu Untuk Melanjutkan
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-container">
+
+        <!-- Hero Section -->
+        <section class="section hero fade-in">
+            <!-- Corner Ornament -->
+            <div
+                style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 20px; left: 0; padding: 0 20px; opacity: 0.9;">
+                <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5,95 L5,20 C5,10 10,5 20,5 L95,5" stroke="var(--text-dark)" stroke-width="1.5" />
+                    <path d="M15,95 L15,30 C15,20 20,15 30,15 L95,15" stroke="var(--text-dark)" stroke-width="0.5" />
+                    <circle cx="5" cy="95" r="2" fill="var(--text-dark)" />
+                    <circle cx="95" cy="5" r="2" fill="var(--text-dark)" />
+                    <path d="M30,15 C25,25 35,35 45,25 C55,15 45,5 35,15 C30,20 35,25 40,20" stroke="var(--text-dark)"
+                        stroke-width="1" fill="none" />
+                    <path d="M15,30 C25,25 35,35 25,45 C15,55 5,45 15,35 C20,30 25,35 20,40" stroke="var(--text-dark)"
+                        stroke-width="1" fill="none" />
+                    <path d="M45,25 C50,30 55,25 50,20" stroke="var(--text-dark)" stroke-width="0.5"
+                        fill="var(--text-dark)" />
+                    <path d="M25,45 C30,50 25,55 20,50" stroke="var(--text-dark)" stroke-width="0.5"
+                        fill="var(--text-dark)" />
+                    <circle cx="25" cy="25" r="3" fill="var(--text-dark)" />
+                    <circle cx="35" cy="35" r="1.5" fill="var(--text-dark)" />
+                    <circle cx="15" cy="55" r="1.5" fill="var(--text-dark)" />
+                    <circle cx="55" cy="15" r="1.5" fill="var(--text-dark)" />
+                </svg>
+                <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    style="transform: scaleX(-1);">
+                    <path d="M5,95 L5,20 C5,10 10,5 20,5 L95,5" stroke="var(--text-dark)" stroke-width="1.5" />
+                    <path d="M15,95 L15,30 C15,20 20,15 30,15 L95,15" stroke="var(--text-dark)" stroke-width="0.5" />
+                    <circle cx="5" cy="95" r="2" fill="var(--text-dark)" />
+                    <circle cx="95" cy="5" r="2" fill="var(--text-dark)" />
+                    <path d="M30,15 C25,25 35,35 45,25 C55,15 45,5 35,15 C30,20 35,25 40,20" stroke="var(--text-dark)"
+                        stroke-width="1" fill="none" />
+                    <path d="M15,30 C25,25 35,35 25,45 C15,55 5,45 15,35 C20,30 25,35 20,40" stroke="var(--text-dark)"
+                        stroke-width="1" fill="none" />
+                    <path d="M45,25 C50,30 55,25 50,20" stroke="var(--text-dark)" stroke-width="0.5"
+                        fill="var(--text-dark)" />
+                    <path d="M25,45 C30,50 25,55 20,50" stroke="var(--text-dark)" stroke-width="0.5"
+                        fill="var(--text-dark)" />
+                    <circle cx="25" cy="25" r="3" fill="var(--text-dark)" />
+                    <circle cx="35" cy="35" r="1.5" fill="var(--text-dark)" />
+                    <circle cx="15" cy="55" r="1.5" fill="var(--text-dark)" />
+                    <circle cx="55" cy="15" r="1.5" fill="var(--text-dark)" />
+                </svg>
+            </div>
+
+            <!-- Layered Arch Frame -->
+            <div class="hero-arch-wrapper" style="margin-top: 60px;">
+                <div class="arch-line-outer"></div>
+                <div class="arch-line-inner"></div>
+                <div class="hero-img-placeholder" style="padding: 0;">
+                    <img src="pertama.jpeg" alt="Foto Pasangan"
+                        style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
+                </div>
+            </div>
+
+            <p class="pre-title">Towards the traditional marriage of</p>
+            <h1 class="main-title">Aba &amp; Putri</h1>
+
+            <div class="hero-countdown-box">
+                <div class="hero-countdown-date">SABTU - 10 / 10 - 2026</div>
+                <div class="hero-countdown-timer" id="hero-countdown">
+                    <span id="h-days">00</span> <span class="colon">:</span>
+                    <span id="h-hours">00</span> <span class="colon">:</span>
+                    <span id="h-mins">00</span> <span class="colon">:</span>
+                    <span id="h-secs" class="red-num">00</span>
+                </div>
+                <div class="hero-countdown-labels">
+                    <span>HARI</span>
+                    <span>JAM</span>
+                    <span>MENIT</span>
+                    <span>DETIK</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profile Section -->
+        <section class="section profile-section fade-in">
+            <p class="intro-text">
+                Tanpa mengurangi rasa hormat, kami mengundang Bapak/Ibu,<br>
+                Tiu/Tia, Kaka/Ade, dan Sobat/Kenalan, untuk menghadiri<br>
+                rangkaian resepsi <strong>Sirih Pinang</strong> kami
+            </p>
+
+            <!-- Groom Profile -->
+            <div class="profile-card fade-in">
+                <div class="profile-img-container">
+                    <div class="profile-img-inner" id="groom-img" style="padding: 0; background: none;">
+                        <img src="pria sndiri.JPG.jpeg" alt="Thimoteus"
+                            style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
+                    </div>
+                </div>
+                <h2 class="profile-name">Thimoteus Emanuel Aba Temaluru</h2>
+                <p class="profile-parents">Anak dari Bpk. Yosef Uje ( Sinyo ) Temaluru & Ibu Elisabeth Eriana</p>
+            </div>
+
+            <div class="profile-divider fade-in">Dengan</div>
+
+            <!-- Bride Profile -->
+            <div class="profile-card fade-in">
+                <div class="profile-img-container">
+                    <div class="profile-img-inner" id="bride-img" style="padding: 0; background: none;">
+                        <img src="wanita sndiri.JPG.jpeg" alt="Maria"
+                            style="width: 100%; height: 100%; object-fit: cover; object-position: center top;">
+                    </div>
+                </div>
+                <h2 class="profile-name">Maria Putriana Us Abatan</h2>
+                <p class="profile-parents">Anak dari Bpk. Emanuel Us Abatan & Ibu Lusia Maria Fatima Nani</p>
+            </div>
+        </section>
+
+        <!-- Event Section -->
+        <section class="section event-section fade-in">
+            <!-- Corner Ornament -->
+            <div
+                style="width: 100%; display: flex; justify-content: space-between; position: absolute; top: 20px; left: 0; padding: 0 20px; opacity: 0.9;">
+                <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5,95 L5,20 C5,10 10,5 20,5 L95,5" stroke="var(--text-dark)" stroke-width="1.5" />
+                    <path d="M15,95 L15,30 C15,20 20,15 30,15 L95,15" stroke="var(--text-dark)" stroke-width="0.5" />
+                    <circle cx="5" cy="95" r="2" fill="var(--text-dark)" />
+                    <circle cx="95" cy="5" r="2" fill="var(--text-dark)" />
+                    <path d="M30,15 C25,25 35,35 45,25 C55,15 45,5 35,15 C30,20 35,25 40,20" stroke="var(--text-dark)"
+                        stroke-width="1" fill="none" />
+                    <path d="M15,30 C25,25 35,35 25,45 C15,55 5,45 15,35 C20,30 25,35 20,40" stroke="var(--text-dark)"
+                        stroke-width="1" fill="none" />
+                    <path d="M45,25 C50,30 55,25 50,20" stroke="var(--text-dark)" stroke-width="0.5"
+                        fill="var(--text-dark)" />
+                    <path d="M25,45 C30,50 25,55 20,50" stroke="var(--text-dark)" stroke-width="0.5"
+                        fill="var(--text-dark)" />
+                    <circle cx="25" cy="25" r="3" fill="var(--text-dark)" />
+                    <circle cx="35" cy="35" r="1.5" fill="var(--text-dark)" />
+                    <circle cx="15" cy="55" r="1.5" fill="var(--text-dark)" />
+                    <circle cx="55" cy="15" r="1.5" fill="var(--text-dark)" />
+                </svg>
+                <svg width="120" height="120" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg"
+                    style="transform: scaleX(-1);">
+                    <path d="M5,95 L5,20 C5,10 10,5 20,5 L95,5" stroke="var(--text-dark)" stroke-width="1.5" />
+                    <path d="M15,95 L15,30 C15,20 20,15 30,15 L95,15" stroke="var(--text-dark)" stroke-width="0.5" />
+                    <circle cx="5" cy="95" r="2" fill="var(--text-dark)" />
+                    <circle cx="95" cy="5" r="2" fill="var(--text-dark)" />
+                    <path d="M30,15 C25,25 35,35 45,25 C55,15 45,5 35,15 C30,20 35,25 40,20" stroke="var(--text-dark)"
+                        stroke-width="1" fill="none" />
+                    <path d="M15,30 C25,25 35,35 25,45 C15,55 5,45 15,35 C20,30 25,35 20,40" stroke="var(--text-dark)"
+                        stroke-width="1" fill="none" />
+                    <path d="M45,25 C50,30 55,25 50,20" stroke="var(--text-dark)" stroke-width="0.5"
+                        fill="var(--text-dark)" />
+                    <path d="M25,45 C30,50 25,55 20,50" stroke="var(--text-dark)" stroke-width="0.5"
+                        fill="var(--text-dark)" />
+                    <circle cx="25" cy="25" r="3" fill="var(--text-dark)" />
+                    <circle cx="35" cy="35" r="1.5" fill="var(--text-dark)" />
+                    <circle cx="15" cy="55" r="1.5" fill="var(--text-dark)" />
+                    <circle cx="55" cy="15" r="1.5" fill="var(--text-dark)" />
+                </svg>
+            </div>
+
+            <!-- Couple Icon (Placeholder) -->
+            <div class="event-icon-container">
+                <img src="pertama.jpeg" alt="Couple Icon" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+
+            <p class="event-pre-title">Towards the traditional marriage of</p>
+            <h2 class="event-names">Aba &amp; Putri</h2>
+
+            <div class="event-datetime">
+                SABTU - 10 / 10 - 2026<br>
+                17:00 - SELESAI
+            </div>
+
+            <div class="location-divider">
+                <span class="line"></span>
+                <i class="fas fa-map-marker-alt"></i>
+                <span class="line"></span>
+            </div>
+
+            <p class="event-address">
+                KELURAHAN POSTOH JL III, LORONG TOWER HP TELKOMSEL,<br>SAMPING STADION <strong>ILE MANDIRI</strong>
+            </p>
+
+            <p class="map-hint">Kalo bingung ketu jo di Google Maps</p>
+
+            <a href="https://maps.google.com" target="_blank" class="btn-maps">GOOGLE MAPS</a>
+        </section>
+
+        <!-- Gallery Section -->
+        <section class="section gallery-section fade-in">
+            <h2 class="gallery-title">Through Our Eyes</h2>
+
+            <div class="gallery-grid">
+                <div class="gallery-item"><img src="DEPAN (2).JPG.jpeg" alt="Gallery"></div>
+                <div class="gallery-item"><img src="DEPAN (3).JPG.jpeg" alt="Gallery"></div>
+                <div class="gallery-item"><img src="DEPAN (4).JPG.jpeg" alt="Gallery"></div>
+                <div class="gallery-item"><img src="DEPAN (5).JPG.jpeg" alt="Gallery"></div>
+
+                <div class="gallery-item"><img src="DEPAN (6).JPG.jpeg" alt="Gallery"></div>
+                <div class="gallery-item"><img src="DEPAN (7).JPG.jpeg" alt="Gallery"></div>
+                <div class="gallery-item"><img src="DEPAN (8).JPG.jpeg" alt="Gallery"></div>
+                <div class="gallery-item"><img src="DEPAN (9).JPG.jpeg" alt="Gallery"></div>
+
+                <div class="gallery-item"><img src="DEPAN (10).JPG.jpeg" alt="Gallery"></div>
+                <div class="gallery-item"><img src="DEPAN (11).JPG.jpeg" alt="Gallery"></div>
+                <div class="gallery-item"><img src="DEPAN (12).JPG.jpeg" alt="Gallery"></div>
+                <div class="gallery-item"><img src="DEPAN (13).JPG.jpeg" alt="Gallery"></div>
+            </div>
+        </section>
+
+        <!-- Footer Section -->
+        <section class="section footer-section fade-in">
+            <p class="closing-text">
+                Merupakan suatu kebahagiaan dan kehormatan bagi kami, apabila<br>
+                Bapak/Ibu, Tiu/Tia, Kaka/Ade, dan Sobat/Kenalan sekalian<br>
+                berkenan menghadiri resepsi <strong>Sirih Pinang</strong> Kami
+            </p>
+
+            <div class="footer-signatures">
+                <p class="with-love">WITH ALL OUR LOVE</p>
+                <h2 class="footer-names">Aba &amp; Putri</h2>
+                <p class="stay-healthy">STAY HEALTHY, AND SEE YOU AGAIN IN OUR TENT OF HAPPINESS</p>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        // Set Guest Name from URL Parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        let guestName = urlParams.get('to');
+        if (guestName) {
+            document.getElementById('guest-name').innerText = decodeURIComponent(guestName);
+        }
+
+        // Open Invitation Logic
+        const cover = document.getElementById('cover');
+        const music = document.getElementById('bg-music');
+        const musicBtn = document.getElementById('music-btn');
+        let isMusicPlaying = false;
+
+        function openInvitation() {
+            cover.classList.add('open');
+            document.body.style.overflowY = 'auto';
+
+            // Try playing music
+            music.play().then(() => {
+                isMusicPlaying = true;
+                musicBtn.classList.remove('paused');
+                musicBtn.innerHTML = '<i class="fas fa-compact-disc"></i>';
+            }).catch(e => {
+                console.log("Auto-play prevented by browser.");
+            });
+
+            // Trigger scroll animation for elements already in view
+            handleScrollAnimation();
+        }
+
+        // Toggle Music
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                music.pause();
+                musicBtn.classList.add('paused');
+                musicBtn.innerHTML = '<i class="fas fa-music"></i>';
+            } else {
+                music.play();
+                musicBtn.classList.remove('paused');
+                musicBtn.innerHTML = '<i class="fas fa-compact-disc"></i>';
+            }
+            isMusicPlaying = !isMusicPlaying;
+        }
+
+        // Scroll Animation Observer
+        const fadeElements = document.querySelectorAll('.fade-in');
+
+        function handleScrollAnimation() {
+            fadeElements.forEach((el) => {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+                if (rect.top <= windowHeight * 0.85) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', handleScrollAnimation);
+
+        // Countdown Logic (Target: 10 Oct 2026)
+        const countDownDate = new Date("Oct 10, 2026 00:00:00").getTime();
+
+        const x = setInterval(function () {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("h-days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("h-hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("h-mins").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("h-secs").innerText = seconds.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("hero-countdown").innerHTML = "<div style='font-family: var(--font-serif); font-size: 1.2rem; margin-top: 10px;'>Acara Sedang Berlangsung</div>";
+            }
+        }, 1000);
+    </script>
+
+</body>
+
+</html>
